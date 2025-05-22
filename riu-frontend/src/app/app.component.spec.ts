@@ -17,13 +17,13 @@ describe('AppComponent', () => {
   it(`should have the 'riu-frontend' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('riu-frontend');
+    expect(app.title).toEqual('Super Héroes');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, riu-frontend');
+    expect(compiled.querySelector('h1')?.textContent).toContain('HOLA HEROES');
   });
 });
