@@ -10,13 +10,11 @@ describe('SuperHeroService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(SuperHeroService);
-    
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-
 
   it('should filter heroes by name', () => {
     const service = new SuperHeroService();
@@ -26,7 +24,11 @@ describe('SuperHeroService', () => {
         name: 'Spider-Man',
         realName: 'Peter Parker',
         id: 3,
-        movies: ['Spider-Man: No Way Home', 'Spider-Man 2', 'Avengers: Endgame'],
+        movies: [
+          'Spider-Man: No Way Home',
+          'Spider-Man 2',
+          'Avengers: Endgame',
+        ],
         actors: [
           { name: 'Tobey Maguire', img: '' },
           { name: 'Andrew Garfield', img: '' },
@@ -39,7 +41,6 @@ describe('SuperHeroService', () => {
           'Web-slinging',
         ],
         img: '',
-        backgroundImg: '',
         description:
           "Estudiante mordido por una araña radiactiva que adquiere habilidades arácnidas. Aprende que 'un gran poder conlleva una gran responsabilidad'.",
       },
@@ -59,7 +60,6 @@ describe('SuperHeroService', () => {
           'Combat skills',
         ],
         img: '',
-        backgroundImg: '',
         description:
           'Princesa amazona de Themyscira, hija de Zeus. Defensora de la paz y la justicia en el mundo de los hombres.',
       },
@@ -71,7 +71,6 @@ describe('SuperHeroService', () => {
         actors: [{ name: 'Robert Downey Jr.', img: '' }],
         abilities: ['Genius intellect', 'Powered armor suit', 'Weapons expert'],
         img: '',
-        backgroundImg: '',
         description:
           'Genio multimillonario que construye un traje tecnológico tras ser secuestrado. Fundador de los Avengers.',
       },
@@ -87,7 +86,6 @@ describe('SuperHeroService', () => {
           'Tactical expert',
         ],
         img: '',
-        backgroundImg: '',
         description:
           'Soldado de la Segunda Guerra Mundial mejorado mediante el suero del super soldado. Símbolo de libertad y justicia.',
       },
@@ -99,20 +97,18 @@ describe('SuperHeroService', () => {
         actors: [{ name: 'Chris Hemsworth', img: '' }],
         abilities: ['Godly strength', 'Mjolnir mastery', 'Lightning control'],
         img: '',
-        backgroundImg: '',
         description:
           'Dios nórdico del trueno de Asgard. Protector de los Nueve Reinos con su martio Mjolnir.',
       },
+    ]);
+    // declaro result para que obtenga los elementos que contienen man en su nombre
+    const result = service.getHeroListByNameSection('man');
 
-    ])
-   // declaro result para que obtenga los elementos que contienen man en su nombre
-    const result = service.getHeroListByNameSection('man')();
-    
     // primer criterio es que result tenga 3 elementos
-    expect(result.length).toEqual(3)
+    expect(result.length).toEqual(3);
     // segundo que todos incluyan man
-    expect(result.every(hero => 
-      hero.name.toLowerCase().includes('man'))
+    expect(
+      result.every((hero) => hero.name.toLowerCase().includes('man'))
     ).toBeTrue();
   });
 
@@ -127,30 +123,27 @@ describe('SuperHeroService', () => {
       actors: [{ name: 'Dimitri', img: '' }],
       abilities: ['Excelent Coding', 'Cool guy', 'Great frontender'],
       img: '',
-      backgroundImg: '',
-      description:
-        'Esto es un simple test.',
-    }
+      description: 'Esto es un simple test.',
+    };
     service.addNewHero(cyborg);
-    
+
     // testea que result tenga 21 elementos (1 más que los originales 20)
-    expect(service.superHeroList().length).toEqual(21)
+    expect(service.superHeroList().length).toEqual(21);
 
-    const searchedHeroByIdName = service.getHeroById(21)?.name
+    const searchedHeroByIdName = service.getHeroById(21)?.name;
 
-    expect(searchedHeroByIdName).toEqual('NewHero')
+    expect(searchedHeroByIdName).toEqual('NewHero');
 
     //elimino el elemento con id 21
     service.deleteHeroById(21);
     // testea que result tenga 20 elementos nuevamente
 
-    expect(service.superHeroList().length).toEqual(20)
+    expect(service.superHeroList().length).toEqual(20);
   });
 
-  
   it('should edit a hero', () => {
     const service = new SuperHeroService();
-// simulo nuevo valores para id 1, (actualmente súperman ) 
+    // simulo nuevo valores para id 1, (actualmente súperman )
     const cyborg: SuperHero = {
       name: 'NewHero',
       realName: 'Dimitri Triantafilo',
@@ -159,21 +152,17 @@ describe('SuperHeroService', () => {
       actors: [{ name: 'Dimitri', img: '' }],
       abilities: ['Excelent Coding', 'Cool guy', 'Great frontender'],
       img: '',
-      backgroundImg: '',
-      description:
-        'Esto es un simple test.',
-    }
+      description: 'Esto es un simple test.',
+    };
     service.editHero(cyborg);
-    
+
     // guardo el nombre del heroe, buscando el id 1 dentro del listado de héroes
-    const searchedHeroByIdName = signal(service.getHeroById(1)?.name)
+    const searchedHeroByIdName = signal(service.getHeroById(1)?.name);
 
-    
-
-    expect(searchedHeroByIdName()).toEqual('NewHero')
+    expect(searchedHeroByIdName()).toEqual('NewHero');
 
     // testea que result tenga 20 elementos, para corroborar que no se hayan añadido nuevos héroes
 
-    expect(service.superHeroList().length).toEqual(20)
+    expect(service.superHeroList().length).toEqual(20);
   });
 });

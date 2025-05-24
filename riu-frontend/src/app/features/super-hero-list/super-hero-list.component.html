@@ -1,1 +1,52 @@
-<p>super-hero-list works!</p>
+<main class="list">
+  <mat-form-field appearance="fill">
+    <mat-label>Buscar Por Nombre</mat-label>
+    <input
+      appUppercase
+      matInput
+      placeholder="Nombre"
+      [ngModel]="nameFilter()"
+      (ngModelChange)="nameFilter.set($event)"
+    />
+  </mat-form-field>
+  <content class="list--wrapper">
+    <ol class="list--container">
+      @for (superHero of filteredAndPaginatedList(); track superHero.id; let
+      index = $index) {
+
+      <app-hero-card [superHero]="superHero"></app-hero-card>
+      } @empty {
+      <span class="noResults">No hay Resultados</span>
+      }
+    </ol>
+  </content>
+  <footer class="list--paginator">
+    <button
+      mat-fab
+      color="primary"
+      [ngClass]="currentPage() == 1 ? 'disabled' : null"
+      class="paginatorButton"
+      (click)="previousPage()"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    @for (page of pagesList(); track page) {
+    <span
+      [ngClass]="currentPage() == page ? 'list--paginator--currentPage' : null"
+      (click)="currentPage.set(page)"
+    >
+      {{ page }}
+    </span>
+
+    }
+    <button
+      mat-fab
+      color="primary"
+      [ngClass]="currentPage() == pagesList().length ? 'disabled' : null"
+      class="paginatorButton"
+      (click)="nextPage()"
+    >
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </footer>
+</main>

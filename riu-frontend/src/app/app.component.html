@@ -1,27 +1,30 @@
-
 <style>
+  * {
+    box-sizing: border-box;
+  }
 
-
-* {
-  box-sizing: border-box;
-}
- 
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-}
   main {
     width: 100%;
     height: 100dvh;
-    display: flex;
-    flex-direction: column;
-   
+
     position: relative;
   }
+  .background {
+    width: 100%;
+    height: 100dvh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-image: url("https://i.pinimg.com/736x/de/f4/73/def473f3b4380d977d23ac2502cb1d77.jpg");
+  }
+  .background-overlay {
+    width: 100%;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.65);
+  }
 
-  header{
+  header {
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -30,18 +33,15 @@ body, html {
     background-color: red;
     height: 70px;
   }
-  @media screen and (max-width: 650px) {
 
+  @media screen and (max-width: 650px) {
   }
 </style>
 
 <main class="main">
-  <header>
-    
-  </header>
-
-
+  <section class="background">
+    <div class="background-overlay"></div>
+  </section>
 
   <router-outlet />
 </main>
-

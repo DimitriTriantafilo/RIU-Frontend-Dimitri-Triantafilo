@@ -1,16 +1,15 @@
 export interface SuperHero {
-    name: string;
-    realName?: string;
-    id: number;
-    movies?: string[];
-    actors?: Actor[];
-    abilities?: string[];
-    img?: string;
-    backgroundImg?: string;
-    description?: string;
-  }
+  name: string;
+  realName?: string;
+  id: number;
+  movies?: string[];
+  actors?: Actor[];
+  abilities?: string[];
+  img?: string;
+  description?: string;
+}
 
-  export interface Actor {
-    name: string;
-    img: string;
-  }
+export interface Actor {
+  name: string;
+  img?: string;
+}

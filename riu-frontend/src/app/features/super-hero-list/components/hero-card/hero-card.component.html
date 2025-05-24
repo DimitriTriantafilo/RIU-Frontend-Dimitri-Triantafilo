@@ -1,1 +1,17 @@
-<p>hero-card works!</p>
+<main class="card">
+  <div class="overlay">
+    <h1 class="name">{{ superHero().name }}</h1>
+    <div class="overlay--buttons">
+      <a [routerLink]="'/hero-edit/' + superHero().id">
+        <mat-icon> edit </mat-icon>
+      </a>
+      <mat-icon> delete </mat-icon>
+    </div>
+  </div>
+  <img
+    class="card-img"
+    [src]="superHero().img"
+    fill
+    [alt]="superHero().name + ' img'"
+  />
+</main>

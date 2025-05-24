@@ -1,18 +1,79 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { SuperHeroService } from '../../core/services/super-hero.service';
 import { SuperHero } from '../../@shared/interfaces/super-hero-interfaces';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HeroCardComponent } from './components/hero-card/hero-card.component';
+import { UppercaseDirective } from '../../@shared/directives/uppercase.directive';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-super-hero-list',
-  imports: [],
+  imports: [
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    CommonModule,
+    HeroCardComponent,
+    UppercaseDirective,
+    MatIconModule,
+  ],
   templateUrl: './super-hero-list.component.html',
-  styleUrl: './super-hero-list.component.scss'
+  styleUrl: './super-hero-list.component.scss',
 })
 export class SuperHeroListComponent {
-  reducedHeroList: SuperHero[] = []
+  currentPage = signal<number>(1);
+  pageSize = signal<number>(5);
+  nameFilter = signal<string>('');
 
-  constructor(private superHeroService: SuperHeroService){
-    this.reducedHeroList = this.superHeroService.superHeroList();
-    console.log(this.reducedHeroList)
+  constructor(private superHeroService: SuperHeroService) {
+    effect(() => {
+      console.log('cambio nombre a', this.nameFilter());
+      this.nameFilter(); // Track dependency
+      this.pageSize(); // Track dependency
+      this.currentPage.set(1); // Always reset to page 1
+    });
+  }
+
+  /*
+  Computed que va a ajustar la lista de superHéroes dependiendo del filtro por nombre y paginado.
+  ! Si el filtrado de la tabla requisiese que haga un llamado a una api
+  ! por cada cambio, le agregaría un debounceTime a nameFilter ( conectaria ngModel con un subject o utilizaria reactive forms), 
+  ! para evitar enviar una solicitud por cada caracter .
+  @returns {SuperHero[]} 
+  */
+  filteredAndPaginatedList = computed<SuperHero[]>(() => {
+    const filteredList: SuperHero[] =
+      this.superHeroService.getHeroListByNameSection(this.nameFilter());
+    const startIndex = (this.currentPage() - 1) * this.pageSize();
+    console.log(
+      filteredList
+        .slice(startIndex, startIndex + this.pageSize())
+        .map((e) => e.name)
+    );
+    return filteredList.slice(startIndex, startIndex + this.pageSize());
+  });
+
+  pagesList = computed<number[]>(() => {
+    const totalPages = Math.ceil(
+      this.superHeroService.getHeroListByNameSection(this.nameFilter()).length /
+        this.pageSize()
+    );
+    let pagesArray = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pagesArray.push(i);
+    }
+    console.log(totalPages, pagesArray);
+
+    return pagesArray;
+  });
+
+  previousPage() {
+    this.currentPage.update((e) => e - 1);
+  }
+  nextPage() {
+    this.currentPage.update((e) => e + 1);
   }
 }
