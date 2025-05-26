@@ -1,26 +1,74 @@
-<form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
-  <!-- Campo obligatorio con mensaje de error -->
-  <mat-form-field>
-    <input matInput formControlName="name" placeholder="Nombre del héroe" />
-    <mat-error *ngIf="heroForm.get('name')?.hasError('required')">
-      Este campo es obligatorio
-    </mat-error>
-  </mat-form-field>
+@if(heroForm){
+<div class="crud">
+  <main class="crud-container">
+    <title class="crud-title">
+      {{ title() }}
+    </title>
+    <section class="crud-formWrapper">
+      <form
+        (submit)="postOrEditHero()"
+        [formGroup]="heroForm"
+        class="crud-form"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Ej. Batman" formControlName="name" />
+        </mat-form-field>
 
-  <!-- Campo opcional -->
-  <mat-form-field>
-    <input matInput formControlName="realName" placeholder="Nombre real" />
-  </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre Real</mat-label>
+          <input
+            matInput
+            placeholder="Ej. Bruce Wayne"
+            formControlName="realName"
+          />
+        </mat-form-field>
 
-  <!-- Array de actores -->
-  <div formArrayName="actors">
-    <div *ngFor="let actor of heroForm.get('actors')?.value; let i = index">
-      <div [formGroupName]="i">
-        <input formControlName="name" placeholder="Nombre del actor" />
-      </div>
-    </div>
-    <button type="button" (click)="addActor()">Añadir actor</button>
-  </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Url de Imágen</mat-label>
+          <input matInput placeholder="heroe.jpg" formControlName="img" />
+        </mat-form-field>
 
-  <button type="submit" [disabled]="!heroForm.valid">Guardar</button>
-</form>
+        <mat-form-field appearance="outline">
+          <mat-label>Habilidades</mat-label>
+          <input
+            matInput
+            #abilityInput
+            placeholder="Ej: Super Fuerza"
+            [formControl]="habilidadControl"
+            (keyup.enter)="addAbility(abilityInput.value)"
+          />
+          <button
+            matSuffix
+            type="button"
+            mat-icon-button
+            (click)="addAbility(abilityInput.value)"
+            [disabled]="
+              habilidadControl.invalid || abilities.controls.length > 4
+            "
+          >
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <ol class="abilities-list">
+          <li *ngFor="let ability of abilities.controls; let i = index">
+            <span>{{ ability.value }}</span>
+            <button mat-icon-button (click)="removeAbility(i)" type="button">
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </li>
+        </ol>
+
+        <button color="primary" mat-raised-button type="submit">
+          {{ heroTemplate().id ? "Guardar" : " Crear" }}
+        </button>
+      </form>
+      <app-hero-card
+        [mode]="heroTemplate().id ? 'edit' : 'create'"
+        [superHero]="heroTemplate()"
+      ></app-hero-card>
+    </section>
+  </main>
+</div>
+}

@@ -1,0 +1,37 @@
+<main class="card">
+  <div class="overlay">
+    <h1 class="name">{{ superHero().name }}</h1>
+
+    <section class="abilities">
+      Habilidades:
+      <ol class="abilities-list">
+        @for(ability of superHero().abilities; track ability){
+        <li>
+          <span>{{ ability }}</span>
+        </li>
+        }
+      </ol>
+    </section>
+
+    <div class="overlay--buttons">
+      @if(mode() == 'list' ){
+      <a [routerLink]="'/hero-edit/' + superHero().id">
+        <mat-icon> edit </mat-icon>
+      </a>
+      } @if(mode() !== 'create'){
+      <div (click)="deleteHero()">
+        <mat-icon class="icon"> delete </mat-icon>
+      </div>
+      }
+    </div>
+  </div>
+  <img
+    class="card-img"
+    [ngSrc]="
+      superHero().img ||
+      'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
+    "
+    fill
+    [alt]="superHero().name + ' img'"
+  />
+</main>

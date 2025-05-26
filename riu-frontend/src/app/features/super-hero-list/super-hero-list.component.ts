@@ -5,9 +5,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HeroCardComponent } from './components/hero-card/hero-card.component';
+import { HeroCardComponent } from '../../@shared/components/hero-card/hero-card.component';
 import { UppercaseDirective } from '../../@shared/directives/uppercase.directive';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select';
+
 @Component({
   selector: 'app-super-hero-list',
   imports: [
@@ -18,6 +22,9 @@ import { MatIconModule } from '@angular/material/icon';
     HeroCardComponent,
     UppercaseDirective,
     MatIconModule,
+    MatButtonModule,
+    RouterModule,
+    MatSelectModule,
   ],
   templateUrl: './super-hero-list.component.html',
   styleUrl: './super-hero-list.component.scss',
@@ -37,7 +44,7 @@ export class SuperHeroListComponent {
   }
 
   /*
-  Computed que va a ajustar la lista de superHéroes dependiendo del filtro por nombre y paginado.
+  filteredAndPaginatedList es un Computed que va a ajustar la lista de superHéroes dependiendo del filtro por nombre y paginado.
   ! Si el filtrado de la tabla requisiese que haga un llamado a una api
   ! por cada cambio, le agregaría un debounceTime a nameFilter ( conectaria ngModel con un subject o utilizaria reactive forms), 
   ! para evitar enviar una solicitud por cada caracter .

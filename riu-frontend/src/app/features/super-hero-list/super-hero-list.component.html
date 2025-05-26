@@ -1,25 +1,37 @@
 <main class="list">
-  <mat-form-field appearance="fill">
-    <mat-label>Buscar Por Nombre</mat-label>
-    <input
-      appUppercase
-      matInput
-      placeholder="Nombre"
-      [ngModel]="nameFilter()"
-      (ngModelChange)="nameFilter.set($event)"
-    />
-  </mat-form-field>
-  <content class="list--wrapper">
+  <div class="list--search">
+    <mat-form-field appearance="fill">
+      <mat-label>Buscar Por Nombre</mat-label>
+      <input
+        appUppercase
+        matInput
+        placeholder="Nombre"
+        [ngModel]="nameFilter()"
+        (ngModelChange)="nameFilter.set($event)"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Resultados por página</mat-label>
+      <mat-select [ngModel]="pageSize()" (ngModelChange)="pageSize.set($event)">
+        <mat-option value="5">5</mat-option>
+        <mat-option value="10">10</mat-option>
+        <mat-option value="20">20</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="list--wrapper">
     <ol class="list--container">
       @for (superHero of filteredAndPaginatedList(); track superHero.id; let
       index = $index) {
 
-      <app-hero-card [superHero]="superHero"></app-hero-card>
+      <app-hero-card mode="list" [superHero]="superHero"></app-hero-card>
       } @empty {
       <span class="noResults">No hay Resultados</span>
       }
     </ol>
-  </content>
+  </div>
   <footer class="list--paginator">
     <button
       mat-fab

@@ -5,13 +5,17 @@
 
   main {
     width: 100%;
-    height: 100dvh;
-
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 40px 0;
+    box-sizing: border-box;
     position: relative;
+    align-items: center;
   }
   .background {
     width: 100%;
-    height: 100dvh;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -20,28 +24,54 @@
   }
   .background-overlay {
     width: 100%;
-    height: 100dvh;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.65);
   }
 
-  header {
+  .header {
     padding: 1rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: red;
+    background-color: rgba(0, 0, 0, 0.65);
     height: 70px;
+  }
+  .title {
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    justify-self: center;
+  }
+  .subtitles {
+    text-decoration: none;
+    justify-self: center;
+    color: white;
+    font-size: 20px;
   }
 
   @media screen and (max-width: 650px) {
   }
 </style>
 
+<app-spinner></app-spinner>
 <main class="main">
   <section class="background">
     <div class="background-overlay"></div>
   </section>
+  <header class="header">
+    <a routerLink="hero-list" class="title"> RIU-Frontend-Dimitri </a>
+
+    <a class="subtitles" [routerLink]="'/hero-list'">
+      Listado de Super Héroes
+    </a>
+
+    <a class="subtitles" [routerLink]="'/hero-create'">
+      Crear Nuevo Super Héroe
+    </a>
+  </header>
 
   <router-outlet />
 </main>

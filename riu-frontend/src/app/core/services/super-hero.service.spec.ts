@@ -24,16 +24,7 @@ describe('SuperHeroService', () => {
         name: 'Spider-Man',
         realName: 'Peter Parker',
         id: 3,
-        movies: [
-          'Spider-Man: No Way Home',
-          'Spider-Man 2',
-          'Avengers: Endgame',
-        ],
-        actors: [
-          { name: 'Tobey Maguire', img: '' },
-          { name: 'Andrew Garfield', img: '' },
-          { name: 'Tom Holland', img: '' },
-        ],
+
         abilities: [
           'Wall-crawling',
           'Spider-sense',
@@ -41,18 +32,12 @@ describe('SuperHeroService', () => {
           'Web-slinging',
         ],
         img: '',
-        description:
-          "Estudiante mordido por una araña radiactiva que adquiere habilidades arácnidas. Aprende que 'un gran poder conlleva una gran responsabilidad'.",
       },
       {
         name: 'Wonder Woman',
         realName: 'Diana Prince',
         id: 4,
-        movies: ['Wonder Woman', 'Wonder Woman 1984', 'Justice League'],
-        actors: [
-          { name: 'Gal Gadot', img: '' },
-          { name: 'Lynda Carter', img: '' },
-        ],
+
         abilities: [
           'Super strength',
           'Lasso of Truth',
@@ -60,45 +45,31 @@ describe('SuperHeroService', () => {
           'Combat skills',
         ],
         img: '',
-        description:
-          'Princesa amazona de Themyscira, hija de Zeus. Defensora de la paz y la justicia en el mundo de los hombres.',
       },
       {
         name: 'Iron Man',
         realName: 'Tony Stark',
         id: 5,
-        movies: ['Iron Man', 'Avengers: Endgame', 'Spider-Man: Homecoming'],
-        actors: [{ name: 'Robert Downey Jr.', img: '' }],
         abilities: ['Genius intellect', 'Powered armor suit', 'Weapons expert'],
         img: '',
-        description:
-          'Genio multimillonario que construye un traje tecnológico tras ser secuestrado. Fundador de los Avengers.',
       },
       {
         name: 'Captain America',
         realName: 'Steve Rogers',
         id: 6,
-        movies: ['Captain America: The First Avenger', 'Avengers: Endgame'],
-        actors: [{ name: 'Chris Evans', img: '' }],
         abilities: [
           'Super soldier strength',
           'Shield mastery',
           'Tactical expert',
         ],
         img: '',
-        description:
-          'Soldado de la Segunda Guerra Mundial mejorado mediante el suero del super soldado. Símbolo de libertad y justicia.',
       },
       {
         name: 'Thor',
         realName: 'Thor Odinson',
         id: 7,
-        movies: ['Thor', 'Avengers: Infinity War', 'Thor: Ragnarok'],
-        actors: [{ name: 'Chris Hemsworth', img: '' }],
         abilities: ['Godly strength', 'Mjolnir mastery', 'Lightning control'],
         img: '',
-        description:
-          'Dios nórdico del trueno de Asgard. Protector de los Nueve Reinos con su martio Mjolnir.',
       },
     ]);
     // declaro result para que obtenga los elementos que contienen man en su nombre
@@ -119,11 +90,8 @@ describe('SuperHeroService', () => {
       name: 'NewHero',
       realName: 'Dimitri Triantafilo',
       id: 21,
-      movies: ['Getting to work for RIU'],
-      actors: [{ name: 'Dimitri', img: '' }],
       abilities: ['Excelent Coding', 'Cool guy', 'Great frontender'],
       img: '',
-      description: 'Esto es un simple test.',
     };
     service.addNewHero(cyborg);
 
@@ -148,11 +116,8 @@ describe('SuperHeroService', () => {
       name: 'NewHero',
       realName: 'Dimitri Triantafilo',
       id: 1,
-      movies: ['Getting to work for RIU'],
-      actors: [{ name: 'Dimitri', img: '' }],
       abilities: ['Excelent Coding', 'Cool guy', 'Great frontender'],
       img: '',
-      description: 'Esto es un simple test.',
     };
     service.editHero(cyborg);
 
