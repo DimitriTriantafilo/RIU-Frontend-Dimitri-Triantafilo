@@ -36,7 +36,6 @@ export class SuperHeroListComponent {
 
   constructor(private superHeroService: SuperHeroService) {
     effect(() => {
-      console.log('cambio nombre a', this.nameFilter());
       this.nameFilter(); // Track dependency
       this.pageSize(); // Track dependency
       this.currentPage.set(1); // Always reset to page 1
@@ -54,11 +53,6 @@ export class SuperHeroListComponent {
     const filteredList: SuperHero[] =
       this.superHeroService.getHeroListByNameSection(this.nameFilter());
     const startIndex = (this.currentPage() - 1) * this.pageSize();
-    console.log(
-      filteredList
-        .slice(startIndex, startIndex + this.pageSize())
-        .map((e) => e.name)
-    );
     return filteredList.slice(startIndex, startIndex + this.pageSize());
   });
 
@@ -72,8 +66,6 @@ export class SuperHeroListComponent {
     for (let i = 1; i <= totalPages; i++) {
       pagesArray.push(i);
     }
-    console.log(totalPages, pagesArray);
-
     return pagesArray;
   });
 

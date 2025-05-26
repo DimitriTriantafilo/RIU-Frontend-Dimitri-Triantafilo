@@ -29,6 +29,9 @@ export const routes: Routes = [
           import('./features/super-hero-crud/super-hero-crud.component').then(
             (m) => m.SuperHeroCrudComponent
           ),
+        data: {
+          renderMode: 'ssr', // Usa SSR en lugar de prerrenderizado estático
+        },
       },
 
       {

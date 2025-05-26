@@ -138,7 +138,6 @@ export class SuperHeroCrudComponent implements OnInit, OnDestroy {
   //Función para editar o crear un héroe. Si el Héroe tiene id, se procedera a editar al héroe, en caso de no tener Id, se le añadira un uuid y se creara un nuevo héroe
 
   postOrEditHero(): void {
-    console.log(this.heroForm.valid);
     if (!this.heroForm.valid) {
       this.heroForm.markAllAsTouched();
     } else {
@@ -152,7 +151,6 @@ export class SuperHeroCrudComponent implements OnInit, OnDestroy {
         width: '200px',
       });
       dialogRef.afterClosed().subscribe((result) => {
-        console.log('The dialog was closed');
         if (result) {
           if (!this.heroTemplate().id) {
             this.heroTemplate.update((hero) => {
