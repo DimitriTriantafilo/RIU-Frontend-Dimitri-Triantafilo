@@ -35,5 +35,5 @@ Para ejecutar las pruebas con [Karma](https://karma-runner.github.io) utilizar e
 ```bash
 ng test
 ```
-## Running Docker
+
 
