@@ -33,7 +33,11 @@ export class HeroCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const imgUrl = new URL(this.superHero().img);
+    const imgUrl = new URL(
+      this.superHero().img.length && this.superHero().img.startsWith('http')
+        ? this.superHero().img
+        : 'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
+    );
     const domain = imgUrl.origin;
 
     if (!this.document.querySelector(`link[href="${domain}"]`)) {
