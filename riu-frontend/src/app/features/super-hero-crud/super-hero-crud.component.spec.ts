@@ -7,7 +7,6 @@ import { of } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SuperHeroCrudComponent', () => {
   let component: SuperHeroCrudComponent;
@@ -41,7 +40,6 @@ describe('SuperHeroCrudComponent', () => {
         MatInputModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterTestingModule,
       ],
       providers: [
         { provide: SuperHeroService, useValue: mockSuperHeroService },

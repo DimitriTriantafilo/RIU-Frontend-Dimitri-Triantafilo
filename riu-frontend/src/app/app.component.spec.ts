@@ -5,10 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing'; // Importa esto
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        AppComponent,
-        RouterTestingModule, // Añade esto para mockear las dependencias del router
-      ],
+      imports: [AppComponent, RouterTestingModule],
     }).compileComponents();
   });
 

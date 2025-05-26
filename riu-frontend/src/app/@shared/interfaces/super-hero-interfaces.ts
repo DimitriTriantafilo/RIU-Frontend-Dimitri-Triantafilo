@@ -3,7 +3,7 @@ export interface SuperHero {
   realName?: string;
   id: number | string;
   abilities: string[];
-  img?: string;
+  img: string;
 }
 
 export interface Actor {

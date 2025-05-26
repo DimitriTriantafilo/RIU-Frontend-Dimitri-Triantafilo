@@ -65,6 +65,7 @@
         </button>
       </form>
       <app-hero-card
+        [priority]="true"
         [mode]="heroTemplate().id ? 'edit' : 'create'"
         [superHero]="heroTemplate()"
       ></app-hero-card>

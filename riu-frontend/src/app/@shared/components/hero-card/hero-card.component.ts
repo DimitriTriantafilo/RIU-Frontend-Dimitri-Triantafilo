@@ -1,6 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, Inject, input, OnInit } from '@angular/core';
 import { SuperHero } from '../../interfaces/super-hero-interfaces';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule, NgOptimizedImage, DOCUMENT } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { SuperHeroService } from '../../../core/services/super-hero.service';
@@ -19,14 +19,30 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   templateUrl: './hero-card.component.html',
   styleUrl: './hero-card.component.scss',
 })
-export class HeroCardComponent {
+export class HeroCardComponent implements OnInit {
+  superHero = input.required<SuperHero>();
+  mode = input.required<'list' | 'edit' | 'create'>();
+
+  priority = input<boolean>();
+
   constructor(
     private superHeroService: SuperHeroService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(DOCUMENT) private document: Document
   ) {}
-  superHero = input.required<SuperHero>();
-  mode = input.required<'list' | 'edit' | 'create'>();
+
+  ngOnInit() {
+    const imgUrl = new URL(this.superHero().img);
+    const domain = imgUrl.origin;
+
+    if (!this.document.querySelector(`link[href="${domain}"]`)) {
+      const link = this.document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = domain;
+      this.document.head.appendChild(link);
+    }
+  }
 
   deleteHero() {
     const dialogRef = this.dialog.open(AlertComponent, {
@@ -43,5 +59,14 @@ export class HeroCardComponent {
         this.router.navigateByUrl('/hero-list');
       }
     });
+  }
+
+  handleImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.src =
+      'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg';
+    // Opcional: remover atributos de NgOptimizedImage para el fallback
+    img.removeAttribute('ngSrc');
+    img.removeAttribute('ngSrcset');
   }
 }

@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { SuperHeroService } from './super-hero.service';
 import { SuperHero } from '../../@shared/interfaces/super-hero-interfaces';
@@ -12,13 +12,13 @@ describe('SuperHeroService', () => {
     service = TestBed.inject(SuperHeroService);
   });
 
-  it('should be created', () => {
+  it('Debería crearse el servicio', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should filter heroes by name', () => {
+  it('Debería filtrar héroes segun nombre', () => {
     const service = new SuperHeroService();
-    //cambio el valr inicial a un listado en el que hay 5 héroes de los cuales solo 3 tienen man en su nombre
+    //cambio el valor inicial a un listado en el que hay 5 héroes de los cuales solo 3 tienen man en su nombre
     service.superHeroList.set([
       {
         name: 'Spider-Man',
@@ -83,15 +83,15 @@ describe('SuperHeroService', () => {
     ).toBeTrue();
   });
 
-  it('should add new Hero, then get its name by id and finally delete it', () => {
+  it('Debería crear un nuevo Super Héroe, Luego, obtener su info segun id y finalmente eliminarlo', fakeAsync(async () => {
     const service = new SuperHeroService();
 
     const cyborg: SuperHero = {
-      name: 'NewHero',
+      name: 'Dimitri',
       realName: 'Dimitri Triantafilo',
       id: 21,
       abilities: ['Excelent Coding', 'Cool guy', 'Great frontender'],
-      img: '',
+      img: 'https://i.pinimg.com/474x/b0/be/0d/b0be0dba2bab92f0a8ae88b37bc458e8.jpg',
     };
     service.addNewHero(cyborg);
 
@@ -100,16 +100,17 @@ describe('SuperHeroService', () => {
 
     const searchedHeroByIdName = service.getHeroById(21)?.name;
 
-    expect(searchedHeroByIdName).toEqual('NewHero');
+    expect(searchedHeroByIdName).toEqual('Dimitri');
 
-    //elimino el elemento con id 21
-    service.deleteHeroById(21);
+    //elimino el elemento con id 21,
+    // como agregué el loading y ahora tiene un retraso el edit, debo utilizar asincronismo al ejecutar el delete
+    await service.deleteHeroById(21);
+    tick(1000);
     // testea que result tenga 20 elementos nuevamente
-
     expect(service.superHeroList().length).toEqual(20);
-  });
+  }));
 
-  it('should edit a hero', () => {
+  it('Debería editar un héroe', () => {
     const service = new SuperHeroService();
     // simulo nuevo valores para id 1, (actualmente súperman )
     const cyborg: SuperHero = {
@@ -117,7 +118,7 @@ describe('SuperHeroService', () => {
       realName: 'Dimitri Triantafilo',
       id: 1,
       abilities: ['Excelent Coding', 'Cool guy', 'Great frontender'],
-      img: '',
+      img: 'https://i.pinimg.com/474x/b0/be/0d/b0be0dba2bab92f0a8ae88b37bc458e8.jpg',
     };
     service.editHero(cyborg);
 

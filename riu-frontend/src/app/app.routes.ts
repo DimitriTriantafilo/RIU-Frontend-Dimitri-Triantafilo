@@ -30,7 +30,7 @@ export const routes: Routes = [
             (m) => m.SuperHeroCrudComponent
           ),
         data: {
-          renderMode: 'ssr', // Usa SSR en lugar de prerrenderizado estático
+          renderMode: 'ssr',
         },
       },
 

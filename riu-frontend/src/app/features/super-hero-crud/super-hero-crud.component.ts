@@ -81,13 +81,14 @@ export class SuperHeroCrudComponent implements OnInit, OnDestroy {
     });
   }
 
-  //método para contruir el formulario, en caso de existir el héroe a editar,
+  //método para contruir el formulario, en caso de existir el héroe a editar, los valores iniciales serán los del héroe
+
   buildForm(existingHeroInfo?: SuperHero): void {
     this.heroForm = this.fb.group({
       name: [
         existingHeroInfo ? existingHeroInfo.name : '',
         [Validators.required],
-      ], // Campo obligatorio
+      ],
       realName: [
         existingHeroInfo ? existingHeroInfo.realName : '',
         [Validators.required],
@@ -104,7 +105,8 @@ export class SuperHeroCrudComponent implements OnInit, OnDestroy {
     this.createFormControlsSubscriptionsToUpdateCard();
   }
 
-  //Función que recorre todas las keys del formulario para agregarle una subscripción a su value changes y modificar la signal del superHeroe
+  //Función que recorre todas las keys del formulario para agregarle una subscripción a su value changes y
+  //  modificar la signal del superHeroe
   createFormControlsSubscriptionsToUpdateCard() {
     Object.keys(this.heroForm.controls).forEach((controlName) => {
       const control = this.heroForm.get(controlName);
@@ -135,7 +137,8 @@ export class SuperHeroCrudComponent implements OnInit, OnDestroy {
     this.abilities.removeAt(index);
   }
 
-  //Función para editar o crear un héroe. Si el Héroe tiene id, se procedera a editar al héroe, en caso de no tener Id, se le añadira un uuid y se creara un nuevo héroe
+  //Función para editar o crear un héroe. Si el Héroe tiene id, se procedera a editar al héroe,
+  //  en caso de no tener Id, se le añadira un uuid y se creara un nuevo héroe
 
   postOrEditHero(): void {
     if (!this.heroForm.valid) {

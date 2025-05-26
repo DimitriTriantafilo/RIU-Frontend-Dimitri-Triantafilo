@@ -25,6 +25,21 @@
       }
     </div>
   </div>
+  @if(priority()){
+  <img
+    class="card-img"
+    [ngSrc]="
+      superHero().img ||
+      'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
+    "
+    priority
+    fill
+    [alt]="
+      'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
+    "
+    (error)="handleImageError($event)"
+  />
+  } @else {
   <img
     class="card-img"
     [ngSrc]="
@@ -32,6 +47,10 @@
       'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
     "
     fill
-    [alt]="superHero().name + ' img'"
+    [alt]="
+      'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
+    "
+    (error)="handleImageError($event)"
   />
+  }
 </main>

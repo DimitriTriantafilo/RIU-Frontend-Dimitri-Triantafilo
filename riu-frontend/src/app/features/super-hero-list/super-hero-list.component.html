@@ -26,7 +26,11 @@
       @for (superHero of filteredAndPaginatedList(); track superHero.id; let
       index = $index) {
 
-      <app-hero-card mode="list" [superHero]="superHero"></app-hero-card>
+      <app-hero-card
+        mode="list"
+        [priority]="$index == 0 ? true : false"
+        [superHero]="superHero"
+      ></app-hero-card>
       } @empty {
       <span class="noResults">No hay Resultados</span>
       }
